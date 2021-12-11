@@ -1,5 +1,11 @@
+github:
+  prebuilds:
+    addComment: false
+    addBadge: true
+
 ports:
   - port: 8080
+  - port: 7471
 
 vscode:
   extensions:
@@ -9,3 +15,10 @@ vscode:
 
 image:
   file: .gitpod.Dockerfile
+
+# startup tasks
+tasks:
+  - name: 'Maven dependencies'
+    init: ./mvnw package -DskipTests
+  - name: 'Npm dependencies'
+    init: npm ci
