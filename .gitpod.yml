@@ -1,0 +1,11 @@
+ports:
+  - port: 8080
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - esbenp.prettier-vscode
+    - ms-azuretools.vscode-docker
+
+image:
+  file: .gitpod.Dockerfile
