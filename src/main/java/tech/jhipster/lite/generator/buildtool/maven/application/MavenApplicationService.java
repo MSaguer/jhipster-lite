@@ -33,6 +33,10 @@ public class MavenApplicationService {
     mavenService.deleteDependency(project, dependency);
   }
 
+  public void addDependencyManagement(Project project, Dependency dependency) {
+    mavenService.addDependencyManagement(project, dependency);
+  }
+
   public void addPlugin(Project project, Plugin plugin) {
     mavenService.addPlugin(project, plugin);
   }

@@ -188,6 +188,36 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyManagement() {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency.builder()
+      .groupId("tech.jhipster")
+      .artifactId("jhipster-dependencies")
+      .scope("import")
+      .type("pom")
+      .version("${jhipster-dependencies.version}")
+      .build();
+    mavenApplicationService.addDependencyManagement(project, dependency);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependencies>",
+        "<dependency>",
+        "<groupId>tech.jhipster</groupId>",
+        "<artifactId>jhipster-dependencies</artifactId>",
+        "<version>${jhipster-dependencies.version}</version>",
+        "<type>pom</type>",
+        "<scope>import</scope>",
+        "</dependency>",
+        "<!-- jhipster-needle-maven-add-dependency-management -->"
+      )
+    );
+  }
+
+  @Test
   void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
 

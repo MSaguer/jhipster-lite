@@ -12,6 +12,7 @@ public class Maven {
 
   public static final String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
   public static final String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
+  public static final String NEEDLE_DEPENDENCY_MANAGEMENT = "<!-- jhipster-needle-maven-add-dependency-management -->";
   public static final String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
@@ -33,6 +34,9 @@ public class Maven {
 
   public static final String VERSION_BEGIN = "<version>";
   public static final String VERSION_END = "</version>";
+
+  public static final String TYPE_BEGIN = "<type>";
+  public static final String TYPE_END = "</type>";
 
   public static final String SCOPE_BEGIN = "<scope>";
   public static final String SCOPE_END = "</scope>";
@@ -123,6 +127,12 @@ public class Maven {
       .getVersion()
       .ifPresent(version ->
         result.append(indent(3, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
+      );
+
+    dependency
+      .getType()
+      .ifPresent(type ->
+      result.append(indent(3, indentation)).append(TYPE_BEGIN).append(type).append(TYPE_END).append(System.lineSeparator())
       );
 
     dependency

@@ -62,6 +62,23 @@ public class MavenDomainService implements MavenService {
     }
   }
 
+  public void addDependencyManagement(Project project, Dependency dependency) {
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    String dependencyNodeNode = Maven.getDependencyHeader(dependency, indent);
+    String dependencyRegexp = FileUtils.REGEXP_PREFIX_MULTILINE + dependencyNodeNode;
+
+    if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {
+      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
+      String needle = NEEDLE_DEPENDENCY_MANAGEMENT;
+      String dependencyWithNeedle =
+        Maven.getDependency(dependency, indent) + System.lineSeparator() + indent(2, indent) + needle;
+
+      projectRepository.replaceText(project, "", POM_XML, needle, dependencyWithNeedle);
+    }
+  }
+
   @Override
   public void deleteDependency(Project project, Dependency dependency) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);

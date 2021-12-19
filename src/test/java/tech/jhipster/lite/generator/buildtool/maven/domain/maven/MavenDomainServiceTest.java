@@ -42,6 +42,22 @@ class MavenDomainServiceTest {
   }
 
   @Test
+  void shouldAddDependencyManagement() {
+    Project project = tmpProjectWithPomXml();
+    Dependency dependency = Dependency.builder()
+      .groupId("tech.jhipster")
+      .artifactId("jhipster-dependencies")
+      .version("${jhipster-dependencies.version}")
+      .type("pom")
+      .scope("import")
+      .build();
+
+    mavenDomainService.addDependencyManagement(project, dependency);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldAddDependency() {
     Project project = tmpProjectWithPomXml();
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
