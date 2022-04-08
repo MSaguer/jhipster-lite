@@ -36,13 +36,13 @@ jobs:
           chmod +x mvnw
           ./mvnw clean verify
       - name: 'Artifact: upload JaCoCo report'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: jacoco
           path: '${{ github.workspace }}/target/jacoco/jacoco.xml'
           retention-days: 1
       - name: 'Artifact: upload JAR'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: jhlite-jar
           path: '${{ github.workspace }}/target/*.jar'
